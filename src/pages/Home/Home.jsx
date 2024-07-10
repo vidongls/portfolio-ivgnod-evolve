@@ -1,3 +1,4 @@
+import ReactLenis from "lenis/react";
 import { ScrollTrigger, gsap, useGSAP } from "../../lib/gsap";
 import Introduction from "./components/Introduction";
 import MainSection from "./components/MainSection";
@@ -6,33 +7,18 @@ import MyProjects from "./components/MyProjects";
 export default function Home() {
 	useGSAP(() => {
 		const panels = gsap.utils.toArray(".panel");
-		// let tops = panels.map((panel) => ScrollTrigger.create({ trigger: panel, start: "top top" }));
 
 		panels.forEach((panel) => {
+			console.log("🧙 ~ panel:", panel.offsetHeight, window.innerHeigh);
 			ScrollTrigger.create({
-				trigger: panel,
-				start: () => (panel.offsetHeight < window.innerHeight ? "top top" : "bottom bottom"),
+				start: "top top",
+				end: "2000px top",
+				scrub: true,
 				pin: true,
-				pinSpacing: false,
-				scrub: 1,
-				pinType: "transform",
-				invalidateOnRefresh: true,
 			});
 		});
 
-		// ScrollTrigger.create({
-		//   snap: {
-		//     snapTo: (progress, self) => {
-		//       let panelStarts = tops.map((st) => st.start), // an Array of all the starting scroll positions. We do this on each scroll to make sure it's totally responsive. Starting positions may change when the user resizes the viewport
-		//         snapScroll = gsap.utils.snap(panelStarts, self.scroll()) // find the closest one
-		//       return gsap.utils.normalize(0, ScrollTrigger.maxScroll(window), snapScroll) // snapping requires a progress value, so convert the scroll position into a normalized progress value between 0 and 1
-		//     },
-		//     duration: 0.5,
-		//   },
-		// })
-
 		smoothScroll("#content");
-		// this is the helper function that sets it all up. Pass in the content <div> and then the wrapping viewport <div> (can be the elements or selector text). It also sets the default "scroller" to the content so you don't have to do that on all your ScrollTriggers.
 		function smoothScroll(content, viewport, smoothness) {
 			content = gsap.utils.toArray(content)[0];
 			smoothness = smoothness || 1;
@@ -138,13 +124,18 @@ export default function Home() {
 	});
 
 	return (
-		<div className=" bg-primary" id="content">
-			<MainSection />
-			<Introduction />
-			<div id="container-project" className="flex w-[300%] flex-wrap">
-				<MyProjects />
+		// <ReactLenis root>
+		<div id="content">
+			<div className="bg-primary">
+				<MainSection />
+				<Introduction />
+				<div id="container-project" className="flex w-[300%] flex-wrap">
+					<MyProjects />
+				</div>
 			</div>
 		</div>
+
+		// </ReactLenis>
 	);
 }
 

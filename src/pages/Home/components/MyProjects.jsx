@@ -26,7 +26,7 @@ const MyProjects = (props) => {
 	];
 
 	return projects.map((project, index) => (
-		<section className="panel2 flex h-screen flex-col bg-primary px-20  pb-20 pt-[124px]" key={index}>
+		<section className="panel2 flex h-screen flex-col bg-primary px-20  pb-20 pt-[124px] " key={index}>
 			<h3 className="mb-10 text-[64px] font-semibold text-tertiary">Selected Works</h3>
 			<div className="flex flex-1 gap-x-6 rounded-3xl bg-secondary p-6">
 				<div className="max-w-80">
@@ -40,7 +40,6 @@ const MyProjects = (props) => {
 
 					<a href="/" className="group flex w-fit items-baseline gap-[10px]">
 						<span className=" text-xl leading-[30px] group-hover:underline group-hover:text-tertiary transition-all duration-300">
-							{" "}
 							View project
 						</span>
 						<img
